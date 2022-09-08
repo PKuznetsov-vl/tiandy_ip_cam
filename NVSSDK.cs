@@ -164,13 +164,13 @@ namespace FaceDemo
         public const int MOBILE_LIGHT_MODE = 3;
 
 
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_NetFileQuery(Int32 _iServerPort, ref NVS_FILE_QUERY _FileQueryt);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_NetFileGetFileCount(Int32 _iLogonID, ref Int32 iTotalCount,ref Int32 _iCurrentCount);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_NetFileGetQueryfile(Int32 _iLogonID,Int32 _Index, ref NVS_FILE_DATA _filedata);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_NetFileDownloadFile(ref UInt32 _uiConID, Int32 _iLogonID, 
                                                     string _cRemoteFilename, 
                                                     string _cLocalFilename,
@@ -178,21 +178,21 @@ namespace FaceDemo
                                                     Int32 _iPosition,
                                                     Int32 _iSpeed);
         //delete by yyb
-        //[DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        //[DllImport("./lib/NVSSDK.dll")]
         //public static extern Int32 NetClient_SetNetFileDownloadFileCallBack(UInt32 _uiConID,ReplayCallBackDelegate _CallBack,IntPtr _UserDate);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_NetFileStopDownloadFile(UInt32 _uiConID);
 
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_NetFileGetDownloadPos(UInt32 _uiConID, ref Int32 _iPos,ref Int32 _dlSize);
 
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_NetFileDownload(ref UInt32 uiConID, Int32 _iLogonID, Int32 _iCmd, [MarshalAs(UnmanagedType.LPArray)]byte[] _lpBuf, Int32 _iBufSize);
 
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_GetAlarmPortNum(Int32 _iLogonID, ref Int32 _iAlarmChannelNo, ref Int32 _iAlarmOutPortNum);
 
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_NetFileDownloadByTimeSpanEx(ref UInt32 _uiConID, 
                                                                          Int32 _iLogonID,
                                                                          string _cLocalFilename,
@@ -204,112 +204,112 @@ namespace FaceDemo
                                                                          Int32 _iSpeed);
 
 
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll", SetLastError = true)]
+        [DllImport("./lib/NVSSDK.dll", SetLastError = true)]
         public static extern Int32 NetClient_SetPort(Int32 _iServerPort, Int32 _iClientPort);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_SetMSGHandle(UInt32 _uiMessage, IntPtr _hWnd, UInt32 _uiParaMsg, UInt32 _uiAlarmMsg);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_Startup();
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_Cleanup();
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll", SetLastError = true)]
+        [DllImport("./lib/NVSSDK.dll", SetLastError = true)]
         public static extern Int32 NetClient_SetNotifyFunction_V4(MAIN_NOTIFY_V4 _MainNotify,
                                           ALARM_NOTIFY_V4 _AlarmNotify,
                                           PARACHANGE_NOTIFY_V4 _ParaNotify,
                                           COMRECV_NOTIFY_V4 _ComNotify,
                                           PROXY_NOTIFY _ProxyNotify);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_Logon(String _cProxy, String _cIP, String _cUserName, String _cPassword, String _pcProID, Int32 _iPort);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_Logoff(Int32 _iLogonID);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_StartRecv(ref UInt32 _uiConID, ref CLIENTINFO _cltInfo, RECVDATA_NOTIFY _cbkDataArrive);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_StopRecv(UInt32 _uiConID);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_StartCaptureData(UInt32 _uiConID);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll", EntryPoint = "NetClient_StopCaptureDate")]
+        [DllImport("./lib/NVSSDK.dll", EntryPoint = "NetClient_StopCaptureDate")]
         public static extern Int32 NetClient_StopCaptureData(UInt32 _uiConID);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_StartPlay(UInt32 _uiConID, IntPtr _hWnd, RECT _rcShow, UInt32 _iDecflag);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_StopPlay(UInt32 _uiConID);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_GetPlayingStatus(UInt32 _uiConID);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_StartCaptureFile(UInt32 _uiConID, string _strFileName, Int32 _iRecFileType);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_StopCaptureFile(UInt32 _uiConID);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_CaptureBmpPic(UInt32 _uiConID, string _strFileName);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_GetOsdText(Int32 _iLogonID, Int32 _iChannelNum,byte[] _btOSDText, ref UInt32 _ulTextColor);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll", SetLastError = true)]
+        [DllImport("./lib/NVSSDK.dll", SetLastError = true)]
         public static extern Int32 NetClient_SetOsdText(Int32 _iLogonID, Int32 _iChannelNum, byte[] _btOSDText,UInt32 _ulTextColor);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_GetOsdType(Int32 _iLogonID, Int32 _iChannelNum, Int32 _iPositionX,ref Int32 _iPositionY,ref Int32 _iOSDType,ref Int32 _iEnabled);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll",SetLastError = true)]
+        [DllImport("./lib/NVSSDK.dll",SetLastError = true)]
         public static extern Int32 NetClient_SetOsdType(Int32 _iLogonID, Int32 _iChannelNum, Int32 _iPositionX, Int32 _iPositionY, Int32 _iOSDType, Int32 _iEnabled);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_GetComPortCounts(Int32 _iLogonID, ref Int32 _iComPortCounts, ref Int32 _iComPortEnabledStatus);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_GetDeviceType(Int32 _iLogonID, Int32 _iChannelNum, ref Int32 _iComNo, ref Int32 _iDevAddress, StringBuilder _strDevType);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_SetDeviceType(Int32 _iLogonID, Int32 _iChannelNum, Int32 _iComNo, Int32 _iDevAddress, byte[] _btDevType);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll", SetLastError = true)]
+        [DllImport("./lib/NVSSDK.dll", SetLastError = true)]
         public static extern Int32 NetClient_GetComFormat(Int32 _iLogonID, Int32 _iComNo, StringBuilder _strComFormat, ref Int32 _iWorkMode);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll", SetLastError = true)]
+        [DllImport("./lib/NVSSDK.dll", SetLastError = true)]
         public static extern Int32 NetClient_SetComFormat(Int32 _iLogonID, Int32 _iComNo,byte[] _btDeviceType,byte[] _btComFormat, Int32 _iWorkMode);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll", EntryPoint = "NetClient_GetVideoPara")]
+        [DllImport("./lib/NVSSDK.dll", EntryPoint = "NetClient_GetVideoPara")]
         public static extern Int32 NetClient_GetVideoParam(Int32 _iLogonID, Int32 _iChannelNum, ref STR_VideoParam _structVideoParam);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll", EntryPoint = "NetClient_SetVideoPara", SetLastError = true)]
+        [DllImport("./lib/NVSSDK.dll", EntryPoint = "NetClient_SetVideoPara", SetLastError = true)]
         public static extern Int32 NetClient_SetVideoParam(Int32 _iLogonID, Int32 _iChannelNum, ref STR_VideoParam _structVideoParam);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_ResetPlayerWnd(UInt32 _uiConID, IntPtr _hwnd);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_GetChannelNum(Int32 _iLogonID,ref Int32 _iChannelNum);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_GetCaptureStatus(UInt32 _uiConID);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll", SetLastError = true)]
+        [DllImport("./lib/NVSSDK.dll", SetLastError = true)]
         public static extern Int32 NetClient_DeviceCtrlEx(Int32 _iLogonID, Int32 _iChannelNum, Int32 _iActionType, Int32 _iParam1, Int32 _iParam2, Int32 _iControlType);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll", SetLastError = true)]
+        [DllImport("./lib/NVSSDK.dll", SetLastError = true)]
         public static extern Int32 NetClient_TalkStart(Int32 _iLogonID, Int32 _iUser);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll", SetLastError = true)]
+        [DllImport("./lib/NVSSDK.dll", SetLastError = true)]
         public static extern Int32 NetClient_TalkEnd(Int32 _iLogonID);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll", SetLastError = true)]
+        [DllImport("./lib/NVSSDK.dll", SetLastError = true)]
         public static extern Int32 NetClient_InputTalkingdata(byte[] _btTalkData, Int32 _iLen);
 
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll", SetLastError = true)]
+        [DllImport("./lib/NVSSDK.dll", SetLastError = true)]
         public static extern Int32 NetClient_Startup_V4(Int32 _iServerPort, Int32 _iClientPort, Int32 _iWnd);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll", SetLastError = true)]
+        [DllImport("./lib/NVSSDK.dll", SetLastError = true)]
         public static extern Int32 NetClient_Logon_V4(Int32 _iLogonType, IntPtr _pvInBuffer, Int32 _iInBufferSize);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll", SetLastError = true)]
+        [DllImport("./lib/NVSSDK.dll", SetLastError = true)]
         public static extern Int32 NetClient_GetLogonStatus(Int32 _iLogonID);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll", SetLastError = true)]
+        [DllImport("./lib/NVSSDK.dll", SetLastError = true)]
         public static extern Int32 NetClient_FaceConfig(Int32 _iLogonId, Int32 _iCmdId, Int32 _iChanNo, IntPtr _lpIn, Int32 _iInLen, IntPtr _lpOut, Int32 _iOutLen);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll", SetLastError = true)]
+        [DllImport("./lib/NVSSDK.dll", SetLastError = true)]
         public static extern Int32 NetClient_SetAlarmConfig(Int32 _iLogonID, Int32 _iChannel, Int32 _iAlarmType, Int32 _iCmd, IntPtr _pvCmdBuf);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_StartRecvNetPicStream(Int32 _iLogonID, IntPtr _ptPara, Int32 _iBufLen, ref UInt32 _puiRecvID);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_StopRecvNetPicStream(UInt32 _uiRecvID);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_SetDevConfig(Int32 _iLogonID, Int32 _iCommand, Int32 _iChannel, IntPtr _lpInBuffer, Int32 _iInBufferSize);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_GetDevConfig(Int32 _iLogonID, Int32 _iCommand, Int32 _iChannel, IntPtr _lpOutBuffer, Int32 _iOutBufferSize, IntPtr _lpBytesReturned);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_SetNotifyUserData_V4(Int32 _iLogonID, IntPtr _iUserData);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_Query_V5(Int32 _iLogonId, Int32 _iCmdId, Int32 _iChanNo, IntPtr _lpIn, int _iInLen, IntPtr _lpOutBuffer, int _iOutLen);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_VCASetConfig(Int32 _iLogonID, Int32 _iVCACmdID, Int32 _iChannel, IntPtr _lpCmdBuf, Int32 _iCmdBufLen);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_VCAGetConfig(Int32 _iLogonID, Int32 _iVCACmdID, Int32 _iChannel, IntPtr _lpCmdBuf, Int32 _iCmdBufLen);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_SetSDKWorkMode(Int32 _iWorkMode);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_SetDsmConfig(Int32 _iCommand, IntPtr _pvBuf, Int32 _iBufSize);
-        [DllImport("C:/Users/Павел/Downloads/EN-NetSDK(Windows64)V5.1.0.0_build20211015/EN-NetSDK(Windows64)V5.1.0.0_build20211015/Lib&Dll/NVSSDK.dll")]
+        [DllImport("./lib/NVSSDK.dll")]
         public static extern Int32 NetClient_GetDsmRegstierInfo(Int32 _iCommand, IntPtr _pvBuf, Int32 _iBufSize);
     
     }

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31613.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tiandy_ip_cam", "tiandy_ip_cam\tiandy_ip_cam.csproj", "{E1653950-BD50-4FBE-BD60-03D9FFEF5E69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tiandy_ip_cam", "tiandy_ip_cam.csproj", "{5719E953-D80E-426B-9689-44B1214DC3F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E1653950-BD50-4FBE-BD60-03D9FFEF5E69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E1653950-BD50-4FBE-BD60-03D9FFEF5E69}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E1653950-BD50-4FBE-BD60-03D9FFEF5E69}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E1653950-BD50-4FBE-BD60-03D9FFEF5E69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5719E953-D80E-426B-9689-44B1214DC3F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5719E953-D80E-426B-9689-44B1214DC3F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5719E953-D80E-426B-9689-44B1214DC3F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5719E953-D80E-426B-9689-44B1214DC3F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {DB9DA180-26AE-478D-B349-04CDCD9316E4}
+		SolutionGuid = {34F7E269-C750-4626-AEB2-C4A75D5EAB06}
 	EndGlobalSection
 EndGlobal
