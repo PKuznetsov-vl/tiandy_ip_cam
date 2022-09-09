@@ -146,7 +146,7 @@ namespace tiandy_ip_cam
         const uint CONST_INVALID_RECV_ID = 0xffffffff;
         private static uint g_uiRecvID = CONST_INVALID_RECV_ID;//接收图片流的连接ID
 
-        public IntPtr Handle { get; private set; }
+       // public IntPtr Handle { get; private set; }
 
         //private IntPtr Handle;
 
@@ -244,7 +244,7 @@ namespace tiandy_ip_cam
                         try
                         {
                             if (tFacePicData.iNegPicLen > 0)
-                            {
+                            {   //Todo rename
                                 string strNegPicName = ".\\FacePicStream\\NegPic-No" + (g_iCount++) + "-Time" + tDataTime.ToString("20yyMMddhhmmss") + "相似度-" + (tFacePicData.iSimilatity).ToString() + ".jpg";
                                 pfNegFile = new FileStream(strNegPicName, FileMode.Create);
                                 if (null != pfNegFile)
@@ -283,7 +283,7 @@ namespace tiandy_ip_cam
 
             if (!Directory.Exists("./tst"))
             {
-                Console.WriteLine("Create Dir");
+                Console.WriteLine("Creating Dir");
                 Directory.CreateDirectory("./tst");
             }
             else { Console.WriteLine("Created"); }
@@ -299,9 +299,11 @@ namespace tiandy_ip_cam
 
                 ptNetPicPara = Marshal.AllocHGlobal(Marshal.SizeOf(g_tNetPicPara));
                 Marshal.StructureToPtr(g_tNetPicPara, ptNetPicPara, true);
-
-                int iRet = NVSSDK.NetClient_StartRecvNetPicStream(m_iLogonId, ptNetPicPara, Marshal.SizeOf(g_tNetPicPara), ref g_uiRecvID);
-                Console.WriteLine(iRet.ToString());
+                int iRet=0;
+                while (iRet<10)
+                    {
+                    iRet = NVSSDK.NetClient_StartRecvNetPicStream(m_iLogonId, ptNetPicPara, Marshal.SizeOf(g_tNetPicPara), ref g_uiRecvID);
+                    Console.WriteLine(iRet.ToString()); }
             }
             catch (System.Exception ex)
             {
