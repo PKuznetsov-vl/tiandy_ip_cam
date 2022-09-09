@@ -58,13 +58,13 @@ namespace tiandy_ip_cam
                         switch (_iLParam.ToInt32())
                         {
                             case SDKConstMsg.LOGON_SUCCESS:
-                                //MessageBox.Show("Login successfully！notify_v4");
+                              Console.WriteLine("Login successfully!");
                                 break;
                             case SDKConstMsg.LOGON_TIMEOUT:
-                             Console.WriteLine("Login timeout！notify_v4");
+                             Console.WriteLine("Login timeout!");
                                 break;
                             case SDKConstMsg.LOGON_FAILED:
-                                Console.WriteLine("Login failed！notify_v4");
+                                Console.WriteLine("Login failed");
                                 break;
                             default:
                                 break;
@@ -177,7 +177,7 @@ namespace tiandy_ip_cam
                 }
 
                 //全景图
-                try
+               /* try
                 {
                     if (tFullPicData.iDataLen > 0)
                     {
@@ -202,7 +202,7 @@ namespace tiandy_ip_cam
                     {
                         pfFullPic.Close();
                     }
-                }
+                }*/
 
                 //人脸小图和人脸底图
                 for (int i = 0; i < tFacePicStream.iFaceCount; ++i)
@@ -212,6 +212,7 @@ namespace tiandy_ip_cam
                     FileStream pfFaceFile = null;
                     try
                     {
+                        Console.WriteLine("tst"+ tFacePicStream.iFaceCount.ToString());
                         if (tFacePicData.iDataLen > 0)
                         {
                             //人脸小图
@@ -271,6 +272,7 @@ namespace tiandy_ip_cam
                 }
 
                 Win32API.PostMessage(_iUser, ClientControlMsg.WM_CLIENT_RECVPICNUM, 0, 0);
+                Console.WriteLine("api"+Win32API.PostMessage(_iUser, ClientControlMsg.WM_CLIENT_RECVPICNUM, 0, 0).ToString());
             }
 
             return 1;
@@ -278,13 +280,11 @@ namespace tiandy_ip_cam
         private void GetFacePhotos()
         {
 
-            
 
-
-            if (!Directory.Exists("./tst"))
+            if (!Directory.Exists("./FacePicStream"))
             {
                 Console.WriteLine("Creating Dir");
-                Directory.CreateDirectory("./tst");
+                Directory.CreateDirectory("./FacePicStream");
             }
             else { Console.WriteLine("Created"); }
             IntPtr ptNetPicPara = IntPtr.Zero;
@@ -299,11 +299,14 @@ namespace tiandy_ip_cam
 
                 ptNetPicPara = Marshal.AllocHGlobal(Marshal.SizeOf(g_tNetPicPara));
                 Marshal.StructureToPtr(g_tNetPicPara, ptNetPicPara, true);
-                int iRet=0;
-                while (iRet<10)
-                    {
+                int iRet = 0;
+                //todo rewrite
+                while (iRet < 10)
+                {
                     iRet = NVSSDK.NetClient_StartRecvNetPicStream(m_iLogonId, ptNetPicPara, Marshal.SizeOf(g_tNetPicPara), ref g_uiRecvID);
-                    Console.WriteLine(iRet.ToString()); }
+                    if (iRet != -1)
+                    { Console.WriteLine(iRet.ToString()); }
+                }
             }
             catch (System.Exception ex)
             {
