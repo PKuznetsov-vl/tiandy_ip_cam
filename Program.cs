@@ -187,15 +187,8 @@ namespace tiandy_ip_cam
             {
                 IntPtr ptVca = _pvCallBackInfo;
                 FacePicStream tFacePicStream = (FacePicStream)Marshal.PtrToStructure(ptVca, typeof(FacePicStream));
-                FileStream pfFullPic = null;
-                PicData tFullPicData = (PicData)Marshal.PtrToStructure(tFacePicStream.tFullData, typeof(PicData));
-                PicTime tTime = tFullPicData.tPicTime;
-                DateTime tDataTime = DateTime.Now;//先初始化为现在的时间以免当时间不合理的时候出现崩溃
-                if (tFullPicData.iDataLen > 0)
-                {
-                    tDataTime = new DateTime((int)tTime.uiYear, (int)tTime.uiMonth, (int)tTime.uiDay,
-    (int)tTime.uiHour, (int)tTime.uiMinute, (int)tTime.uiSecondsr, (int)tTime.uiMilliseconds);
-                }
+                Console.WriteLine("tst1" + tFacePicStream.iFaceCount.ToString());
+
 
                 //全景图
                 /* try
@@ -237,7 +230,7 @@ namespace tiandy_ip_cam
                         if (tFacePicData.iDataLen > 0)
                         {
                             //人脸小图
-                            string strFacePicName = ".\\FacePicStream\\FacePic-No" + (g_iCount++) + "-Time" + tDataTime.ToString("20yyMMddhhmmss") + ".jpg";
+                            string strFacePicName = ".\\FacePicStream\\FacePic-No" + (g_iCount++) + ".jpg";
                             pfFaceFile = new FileStream(strFacePicName, FileMode.Create);
                             //мб это 
                            // Marshal.FreeHGlobal(ptNetPicPara);
