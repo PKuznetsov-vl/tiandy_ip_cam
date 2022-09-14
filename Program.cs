@@ -18,6 +18,11 @@ namespace tiandy_ip_cam
             MC.GetFacePhotos();
         }
 
+
+        private static NetPicPara g_tNetPicPara = new NetPicPara();
+        private static int g_iCount = 0;//接收的图片总张数
+        const uint CONST_INVALID_RECV_ID = 0xffffffff;
+        private static uint g_uiRecvID = CONST_INVALID_RECV_ID;//接收图片流的连接ID
         public int m_iLogonId = -1;
         int iLocalListenPort = 8000;
         string CamIpAddr = "10.16.7.30";
@@ -41,8 +46,8 @@ namespace tiandy_ip_cam
             NVSSDK.NetClient_Startup_V4(0, 0, 0);
 
             //设置主回调
-           // MainNotify_V40 = MyMAIN_NOTIFY_V4;
-            //NVSSDK.NetClient_SetNotifyFunction_V4(MainNotify_V40, null, null, null, null);
+            MainNotify_V40 = MyMAIN_NOTIFY_V4;
+            NVSSDK.NetClient_SetNotifyFunction_V4(MainNotify_V40, null, null, null, null);
 
 
         }
@@ -59,14 +64,15 @@ namespace tiandy_ip_cam
                         switch (_iLParam.ToInt32())
                         {
                             case SDKConstMsg.LOGON_SUCCESS:
-                              Console.WriteLine("Login successfully!");
+                                Console.WriteLine("Login successfully!");
                                 break;
                             case SDKConstMsg.LOGON_TIMEOUT:
-                             Console.WriteLine("Login timeout!");
-                                break;
+                                Console.WriteLine("Error Login timeout!");
+                                throw new Exception("Login timeout! Check camera ip");
+                             
                             case SDKConstMsg.LOGON_FAILED:
-                                Console.WriteLine("Login failed");
-                                break;
+                                Console.WriteLine("Error Login failed");
+                                throw new Exception("Error Login failed! Check you credentials");
                             default:
                                 break;
                         }
@@ -88,35 +94,35 @@ namespace tiandy_ip_cam
                         Win32API.PostMessage(_iUser, ClientControlMsg.WM_CLIENT_SUSPEND, 0, 0);
                         break;
                     }
-               
+
                 default:
                     break;
             }
         }
-        void LunaRequest(byte[] fl)
-            {
+        static void LunaRequest(byte[] fl)
+        { 
+
             var client = new RestClient("http://10.16.30.20:5000");
-            //client.Authenticator = new HttpBasicAuthenticator(username, password);
+           
             var request = new RestRequest("/6/handlers/2e457656-5071-4a56-9eed-339b36d73223/events", Method.Post);
             request.AddQueryParameter("user_data", "Hello");
             request.AddHeader("Luna-Account-Id", "6d071cca-fda5-4a03-84d5-5bea65904480");
 
             string path = "C:/FacePic.jpg";
-            byte[] imageArray = System.IO.File.ReadAllBytes(path);
-            //string base64ImageRepresentation = Convert.ToBase64String(imageArray);
-            //request.AddFile(null, imageArray,"sample", "image/jpeg");
+           
+            byte[] imageArray = fl;
+         
             request.AddBody(imageArray, contentType: "image/jpeg");
 
             var response = client.Execute(request);
-            // var response = client.Post(request);
-            var content = response.Content; // Raw content as string
-            Console.WriteLine(content);
+         
+            var content = response.StatusCode;
+            Console.WriteLine("st" + content);
+           
         }
 
         private void CamLogin()
         {
-            int iRet = -1;
-
             LogonPara tNormal = new LogonPara();
             tNormal.cNvsIP = new char[32];
             tNormal.cUserName = new char[16];
@@ -130,46 +136,15 @@ namespace tiandy_ip_cam
             Marshal.StructureToPtr(tNormal, ptrNormal, true);
             m_iLogonId = NVSSDK.NetClient_Logon_V4(NVSSDK.SERVER_NORMAL, ptrNormal, Marshal.SizeOf(tNormal));
 
-
             if (m_iLogonId < 0)
             {
                 m_iLogonId = -1;
-                Console.WriteLine("Logon failed!");
-                return;
-            }
-            else
-            { Console.WriteLine("Login success!"); }
-            //NVSSDK.NetClient_SetNotifyUserData_V4(m_iLogonId, this.Handle);
 
-            int iTimes = 0;
-            while (0 != NVSSDK.NetClient_GetLogonStatus(m_iLogonId))
-            {
-                if (iTimes++ > 250)
-                {
-                    return;
-                }
-                Thread.Sleep(20);
+                throw new Exception("Login failed!");
             }
 
-            int iChanNum = 0;
-            NVSSDK.NetClient_GetChannelNum(m_iLogonId, ref iChanNum);
-            string[] Channels = new string[iChanNum];
-
-            for (int i = 0; i < iChanNum; ++i)
-            {
-                //Channels.Items.Insert(i, (i + 1).ToString());
-                Channels[i] = (i + 1).ToString();
-                Console.WriteLine("Ch{0}", Channels[i]);
-            }
         }
-        private static NetPicPara g_tNetPicPara = new NetPicPara();
-        private static int g_iCount = 0;//接收的图片总张数
-        const uint CONST_INVALID_RECV_ID = 0xffffffff;
-        private static uint g_uiRecvID = CONST_INVALID_RECV_ID;//接收图片流的连接ID
 
-       // public IntPtr Handle { get; private set; }
-
-        //private IntPtr Handle;
 
         private static int MyNetPicStreamNotify(UInt32 _uiRecvID, int _lCommand, IntPtr _pvCallBackInfo, Int32 _BufLen, IntPtr _iUser)
         {
@@ -190,120 +165,52 @@ namespace tiandy_ip_cam
                 Console.WriteLine("tst1" + tFacePicStream.iFaceCount.ToString());
 
 
-                //全景图
-                /* try
-                 {
-                     if (tFullPicData.iDataLen > 0)
-                     {
-                         string strFullPicName = ".\\FacePicStream\\FullPic-No" + (g_iCount++) + "-Time" + tDataTime.ToString("20yyMMddhhmmss") + ".jpg";
-                         Console.WriteLine(strFullPicName);
-                         pfFullPic = new FileStream(strFullPicName, FileMode.Create);
-                         if (null != pfFullPic)
-                         {
-                             byte[] btFullPicData = new byte[tFullPicData.iDataLen];
-                             Marshal.Copy(tFullPicData.piPicData, btFullPicData, 0, tFullPicData.iDataLen);//将非托管内存拷贝成托管内存，才能在c#里面使用    
-                             pfFullPic.Write(btFullPicData, 0, tFullPicData.iDataLen);
-                         };
-                     }
-                 }
-                 catch (IOException e)
-                 {
-                     Console.WriteLine(e.Message);
-                 }
-                 finally
-                 {
-                     if (null != pfFullPic)
-                     {
-                         pfFullPic.Close();
-                     }
-                 }*/
-
-                //人脸小图和人脸底图
                 for (int i = 0; i < tFacePicStream.iFaceCount; ++i)
                 {
                     FacePicData tFacePicData = (FacePicData)Marshal.PtrToStructure(tFacePicStream.tFaceData[i], typeof(FacePicData));
 
-                    FileStream pfFaceFile = null;
+              
                     try
                     {
-                        Console.WriteLine("tst" + tFacePicStream.iFaceCount.ToString());
+                        Console.WriteLine("tst" + tFacePicData.iDataLen.ToString());
                         if (tFacePicData.iDataLen > 0)
                         {
                             //人脸小图
                             string strFacePicName = ".\\FacePicStream\\FacePic-No" + (g_iCount++) + ".jpg";
-                            pfFaceFile = new FileStream(strFacePicName, FileMode.Create);
+                            //pfFaceFile = new FileStream(strFacePicName, FileMode.Create);
                             //мб это 
-                           // Marshal.FreeHGlobal(ptNetPicPara);
-                            if (null != pfFaceFile)
-                            {
-                                byte[] btFacePicData = new byte[tFacePicData.iDataLen];
-                                Marshal.Copy(tFacePicData.pPicData, btFacePicData, 0, tFacePicData.iDataLen);//управляемая память
-                                pfFaceFile.Write(btFacePicData, 0, tFacePicData.iDataLen);
-                            }
+                            // Marshal.FreeHGlobal(ptNetPicPara);
+                            byte[] btFacePicData = new byte[tFacePicData.iDataLen];
+
+                            Marshal.Copy(tFacePicData.pPicData, btFacePicData, 0, tFacePicData.iDataLen);//управляемая память
+                            LunaRequest(btFacePicData);
+                           
+                            // pfFaceFile.Write(btFacePicData, 0, tFacePicData.iDataLen);
+                            /* if (null != pfFaceFile)
+                             {
+                                 byte[] btFacePicData = new byte[tFacePicData.iDataLen];
+
+                                 Marshal.Copy(tFacePicData.pPicData, btFacePicData, 0, tFacePicData.iDataLen);//управляемая память
+                                 LunaRequest(btFacePicData);
+                                 pfFaceFile.Write(btFacePicData, 0, tFacePicData.iDataLen);
+                             }*/
                         }
                     }
-                    catch (IOException e)
+                    catch (Exception e)
                     {
                         Console.WriteLine(e.Message);
                     }
-                    finally
-                    {
-                        if (null != pfFaceFile)
-                        {
-                            pfFaceFile.Close();
-                        }
-                    }
-                
-
-                    //人脸底图
-                  /*if (1 == tFacePicData.iAlramType)	//有人脸底图
-                    {
-                        FileStream pfNegFile = null;
-                        try
-                        {
-                            if (tFacePicData.iNegPicLen > 0)
-                            {   //Todo rename
-                                string strNegPicName = ".\\FacePicStream\\NegPic-No" + (g_iCount++) + "-Time" + tDataTime.ToString("20yyMMddhhmmss") + "相似度-" + (tFacePicData.iSimilatity).ToString() + ".jpg";
-                                pfNegFile = new FileStream(strNegPicName, FileMode.Create);
-                                if (null != pfNegFile)
-                                {
-                                    byte[] btNegPicData = new byte[tFacePicData.iNegPicLen];
-                                    Marshal.Copy(tFacePicData.pcNegPicData, btNegPicData, 0, tFacePicData.iNegPicLen);//将非托管内存拷贝成托管内存，才能在c#里面使用 
-                                    pfNegFile.Write(btNegPicData, 0, tFacePicData.iNegPicLen);
-                                }
-
-                            }
-                        }
-                        catch (IOException e)
-                        {
-                            Console.WriteLine(e.Message);
-                        }
-                        finally
-                        {
-                            if (null != pfNegFile)
-                            {
-                                pfNegFile.Close();
-                            }
-                        }
-                    }*/
+                              
                 }
 
                 Win32API.PostMessage(_iUser, ClientControlMsg.WM_CLIENT_RECVPICNUM, 0, 0);
-                Console.WriteLine("api"+Win32API.PostMessage(_iUser, ClientControlMsg.WM_CLIENT_RECVPICNUM, 0, 0).ToString());
+                //Console.WriteLine("api" + Win32API.PostMessage(_iUser, ClientControlMsg.WM_CLIENT_RECVPICNUM, 0, 0).ToString());
             }
 
             return 1;
         }
         private void GetFacePhotos()
         {
-
-
-            if (!Directory.Exists("./FacePicStream"))
-            {
-                Console.WriteLine("Creating Dir");
-                Directory.CreateDirectory("./FacePicStream");
-            }
-            else { Console.WriteLine("Created"); }
             IntPtr ptNetPicPara = IntPtr.Zero;
             try
             {
@@ -311,6 +218,7 @@ namespace tiandy_ip_cam
                 g_tNetPicPara.iStructLen = Marshal.SizeOf(g_tNetPicPara);
                 g_tNetPicPara.iChannelNo = 0;
                 g_tNetPicPara.cbkPicStreamNotify = MyNetPicStreamNotify;
+              // if( g_tNetPicPara.cbkPicStreamNotify)
                 // g_tNetPicPara.pvUser = this.Handle;
                 g_tNetPicPara.iPicType = 0;
 
@@ -318,11 +226,12 @@ namespace tiandy_ip_cam
                 Marshal.StructureToPtr(g_tNetPicPara, ptNetPicPara, true);
                 int iRet = 0;
                 //todo rewrite
-                while (iRet <=1)
+                while (iRet <= 1)
                 {
                     iRet = NVSSDK.NetClient_StartRecvNetPicStream(m_iLogonId, ptNetPicPara, Marshal.SizeOf(g_tNetPicPara), ref g_uiRecvID);
+
                     if (iRet != -1)
-                    { Console.WriteLine(iRet.ToString()); }
+                    { Console.WriteLine("Logging"); }
                 }
             }
             catch (System.Exception ex)
