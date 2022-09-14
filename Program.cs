@@ -20,9 +20,9 @@ namespace tiandy_ip_cam
 
 
         private static NetPicPara g_tNetPicPara = new NetPicPara();
-        private static int g_iCount = 0;//接收的图片总张数
+        private static int g_iCount = 0;//Общее количество полученных снимков
         const uint CONST_INVALID_RECV_ID = 0xffffffff;
-        private static uint g_uiRecvID = CONST_INVALID_RECV_ID;//接收图片流的连接ID
+        private static uint g_uiRecvID = CONST_INVALID_RECV_ID;//Идентификатор соединения принимающего поток изображений
         public int m_iLogonId = -1;
         int iLocalListenPort = 8000;
         string CamIpAddr = "10.16.7.30";
@@ -32,20 +32,14 @@ namespace tiandy_ip_cam
         private MAIN_NOTIFY_V4 MainNotify_V40 = null;
         private void StartUp()
         {
-            //设置客户端和主控端所用的默认网络端口
+            //设置客户端和主控端所用的默认网络端口 Установите сетевой порт по умолчанию, используемый клиентом и ведущим
 
             NVSSDK.NetClient_SetPort(3000, 6000);
 
-            //设置消息通知ID
-            //NVSSDK.NetClient_SetMSGHandle(SDKConstMsg.WM_MAIN_MESSAGE, this.Handle, SDKConstMsg.MSG_PARACHG, SDKConstMsg.MSG_ALARM);
-
-            //设置SDK工作模式
             NVSSDK.NetClient_SetSDKWorkMode(NVSSDK.EASYX_LIGHT_MODE);
 
-            //启动SDK
             NVSSDK.NetClient_Startup_V4(0, 0, 0);
 
-            //设置主回调
             MainNotify_V40 = MyMAIN_NOTIFY_V4;
             NVSSDK.NetClient_SetNotifyFunction_V4(MainNotify_V40, null, null, null, null);
 
@@ -55,10 +49,6 @@ namespace tiandy_ip_cam
         {
             switch (_iWparam.ToInt32())
             {
-                //登陆状态消息 
-                //param1 登陆IP
-                //param2 登陆ID
-                //param3 登陆状态
                 case SDKConstMsg.WCM_LOGON_NOTIFY:
                     {
                         switch (_iLParam.ToInt32())
@@ -107,16 +97,11 @@ namespace tiandy_ip_cam
             var request = new RestRequest("/6/handlers/2e457656-5071-4a56-9eed-339b36d73223/events", Method.Post);
             request.AddQueryParameter("user_data", "Hello");
             request.AddHeader("Luna-Account-Id", "6d071cca-fda5-4a03-84d5-5bea65904480");
-
-            string path = "C:/FacePic.jpg";
-           
-            byte[] imageArray = fl;
          
-            request.AddBody(imageArray, contentType: "image/jpeg");
+            request.AddBody(fl, contentType: "image/jpeg");
 
             var response = client.Execute(request);
-         
-            var content = response.StatusCode;
+            var content = response.ThrowIfError();
             Console.WriteLine("st" + content);
            
         }
